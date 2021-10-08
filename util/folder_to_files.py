@@ -28,7 +28,8 @@ To structure like this:
         +file1
         +file2
 """
-
+import sys
+sys.path.append("../lib")
 import os,shutil
 from util import get_dir
 

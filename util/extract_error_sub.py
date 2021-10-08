@@ -1,4 +1,5 @@
-
+import sys
+sys.path.append("../lib")
 import  os,shutil
 from util import get_dir
 

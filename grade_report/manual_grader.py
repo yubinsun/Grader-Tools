@@ -8,6 +8,8 @@ How to use: change report_name, submission_path
 """
 
 import os,re
+import sys
+sys.path.append("../lib")
 
 from util import get_dir, output_report, get_id_from_path, clear_screen
 file_name = "report"
