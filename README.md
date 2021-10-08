@@ -1,5 +1,5 @@
 ### Be careful not to include sensitive privicy infomation and course related information. Check before every commit.
-
+Do NOT include any test bench, student submissions files here. 
 ## Content
 1. Run verilog (or VHDL) in batch and extract output.
 2. Manual grader. Useful when grading report.
