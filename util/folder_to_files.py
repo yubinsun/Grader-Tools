@@ -1,4 +1,35 @@
-import  os,shutil
+"""
+Decription: This script "flats" all files in a folder.
+Use this to convert submission with subfolders into one one
+folder.
+HOW TO USE:
+eg. Convert structures from
+Submission: change "path" variable in the main function.
++All_Submissions
+    +Submission1
+        +project_folder
+            +folder1
+                +file1
+                +file2
+        +report.txt
+    +submission2
+        +report.txt
+        +file1
+        +file2
+
+To structure like this:
++All_Submissions
+    +Submission1
+        +file1
+        +file2
+        +report.txt
+    +submission2
+        +report.txt
+        +file1
+        +file2
+"""
+
+import os,shutil
 from util import get_dir
 
 def change_non_std_char(root = None):
@@ -35,17 +66,17 @@ def folder_to_files(root = os.getcwd(), depth = 0 ):
         os.system("rm -rf " + i)
     return folder_to_files(root,depth+1)
 
-# submission path
-# submission_path = "sub_tmp/"
+if __name__ == '__main__':
+    # move files from sub-director to root directory
 
-# move files from sub-director to root directory
-# path = os.path.join(os.getcwd(),submission_path)
-path = "/home/yb/112L_W21/lab4/submissions"
-os.chdir(path)
-change_non_std_char(path)
-dir = get_dir(".")
+    # submission_path = "sub_tmp/"
+    # path = os.path.join(os.getcwd(),submission_path)
+    path = "/home/yb/112L_W21/lab4/submissions"
+    os.chdir(path)
+    change_non_std_char(path)
+    dir = get_dir(".")
 
-for f in dir:
-    print(f)
-    if not folder_to_files(os.path.join(path,f)):
-        print("ERROR: " + f)
+    for f in dir:
+        print(f)
+        if not folder_to_files(os.path.join(path,f)):
+            print("ERROR: " + f)
