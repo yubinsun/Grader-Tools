@@ -1,6 +1,6 @@
 """
 Description: grade Reports of all submissions.
-Only works in Windows because it use "start" to open
+(!) Only works in Windows because it use "start" to open
 default PDF reader. Need to change this line if needed
 to use in Linux.
 
