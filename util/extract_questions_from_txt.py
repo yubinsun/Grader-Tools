@@ -13,13 +13,13 @@ from util import get_dir, get_id_from_path, output_report
 submission_path = "/home/yb/sambashare/F21-lab3/formatted"  # path to all submission
 report_name = "/home/yb/sambashare/F21-lab3/extract_questions_report"  # including path
 patterns = {
-    "11": "Program[ ]*1\.1[\S\s]*?-----[ ]*end[ ]*-----",
+    "11": "Program[ ]*1[\S\s]*?-----[ ]*end[ ]*-----",
     "12": "Program[ ]*1\.2[\S\s]*?-----[ ]*end[ ]*-----",
-    "21": "Program[ ]*2\.1[\S\s]*?-----[ ]*end[ ]*-----",
+    "21": "Program[ ]*2[\S\s]*?-----[ ]*end[ ]*-----",
     "22": "Program[ ]*2\.2[\S\s]*?-----[ ]*end[ ]*-----",
-    "31": "Program[ ]*3\.1[\S\s]*?-----[ ]*end[ ]*-----",
+    "31": "Program[ ]*3[\S\s]*?-----[ ]*end[ ]*-----",
     "32": "Program[ ]*3\.2[\S\s]*?-----[ ]*end[ ]*-----",
-    "41": "Program[ ]*4\.1[\S\s]*?-----[ ]*end[ ]*-----",
+    "41": "Program[ ]*4[\S\s]*?-----[ ]*end[ ]*-----",
     "43": "Program[ ]*4\.3[\S\s]*?-----[ ]*end[ ]*-----"
 }
 sensitivity_words = ["ERROR", "11", "12", "21", "22", "31", "32", "41", "43"]
