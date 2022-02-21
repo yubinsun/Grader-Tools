@@ -23,7 +23,7 @@
 
 input_filename = "to_comments.csv"
 rf = open(input_filename, encoding='utf-8-sig')
-wf = open('comments.csv','w')
+wf = open('comments.txt','w')
 
 line = rf.readline()
 print(line)
