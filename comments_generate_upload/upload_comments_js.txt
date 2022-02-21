@@ -1,0 +1,121 @@
+/*
+ * Description: upload comments to canvas in batch.
+ * by using `canvas SpeedGrader` tool. 
+ * 
+ * How to use: See the demo video for more details. Brief steps:
+ * 1. update "comments_dict" variable with "ID" : "Comment" pairs.
+ *    "ID" is 6 ditgit canvas student ID. 
+ * 2. open canvas "Speed Grader" in chrome. 
+ *    Then open "dev tools" in chrome (press "F12"). Then open "Console"
+ * 3. Copy this script in to the console, press "enter"
+ * 4. Enter "upload_comments()", and the script will start. 
+ * ~  There will be error shown in the console, and that is fine,
+ *    these error are from the canvas (every time you change page in Speed Grader),
+ *    not this script.
+ *     
+ */
+
+// Change this dictionary:
+comments_dict = {
+  // Example format: 
+  // A "key" : "value" dictionary. 
+  // Key is the 6 ditgit canvas student ID. 
+  "123456" : "Project: 70/70; Report 30/30",
+  "654321" : "Project: 20/70; Report 10/30; Comment: Missing part 1.",
+};
+
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/*
+ * Get current submission count.
+*/
+function get_current_progress(fraction_str) {
+  progress = fraction_str.replace(/\/[0-9]+/, "");
+  return parseInt(progress);
+}
+
+/*
+ * Get how many submissions in total.
+*/
+function get_total_count(fraction_str) {
+  total = fraction_str.replace(/[0-9]+\//, "");
+  return parseInt(total);
+}
+
+/*
+ * Go to next submission by "pressing" the next button.
+*/
+function next_sub() {
+  document.getElementById("next-student-button").click();
+}
+
+/*
+ * Go to the first submission by keeping "pressing" the next button,
+ * until reaches the first one.
+*/
+async function return_to_first_sub() {
+  // go to the 1st submission
+  for (i = 0; i < 5000; i++) {
+    progress = document.getElementById("x_of_x_students_frd").innerText; // get a string "current/total"
+    total_sub_count = get_total_count(progress)
+    current_sub_count = get_current_progress(progress);
+    console.log(current_sub_count);
+    if (current_sub_count == 1) {
+      // return to the first submission
+      return;
+    }
+    next_sub();
+    await sleep(10);
+  }
+  console.log("ERR : cannot find the 1st submission");
+}
+
+
+/*
+ * The main function. 
+ * It will:
+ * Go back to the first submission.
+ * get the current ID from the URL, submit that student's comment,
+ * then go to next student and repeat util the last student. 
+ * 
+ * Print "ID: NOT FOUND" in the console if a submission's comment 
+ * in not in the 
+*/
+async function upload_comments() {
+  return_to_first_sub();
+  progress = document.getElementById("x_of_x_students_frd").innerText; // get a string "current/total"
+  total_sub_count = get_total_count(progress)
+  // loop 5000 time here to avoid error(unlikely, sometimes network connection errors)
+  // that causes the script run forever,
+  // Change to larger number if there are more than 5000 people (unlikely)
+  for (i = 0; i < 5000; i++) {
+    // get the current progress
+    progress = document.getElementById("x_of_x_students_frd").innerText; // get a string "current/total"
+    current_sub_count = get_current_progress(progress)
+    // get the current ID from the URL
+    id = window.location.href.slice(-6);
+    // If the ID is in the dictionary, submit that comment
+    // if the ID is not in the dictionary, print message in the 
+    // console
+    if (comments_dict[id]) {
+      comment = comments_dict[id];
+      console.log(comment)
+      document.getElementById("speed_grader_comment_textarea").value = comment;
+      document.getElementById("comment_submit_button").click();
+    } else {
+      console.log(id, "\tNOT Found; COMMENT_ERROR");
+    }
+    // if it is the last submission, then quit
+    if (current_sub_count == total_sub_count) {
+      // finished
+      break;
+    }
+    // need long sleep to wait for pages to load. 
+    await sleep(1500);
+    next_sub();
+    await sleep(1500);
+  }
+}
