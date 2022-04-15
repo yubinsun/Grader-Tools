@@ -10,23 +10,24 @@ from run_util import *
 from util import get_dir, get_id_from_path, output_report
 #
 gradebook = dict()
-# sensitive field list
+# sensitive field list. Sensitive filed is the field in the 
+# Verilog test bench that we want to keep a record of.
+# Values associated with the sensitive fields will be 
+# saved in the report. 
+#
 # format is
-# *field* = {value}
+# *field* = {value} in the Verilog Testbench. 
+#
 sensitive_words = ["CompileError", "warning",
             "tb1_ANDI_1", "tb1_NOR_1", "tb1_SLT_1"]
 
-# name for generated report
+# name and path for generated report
 report_name = "/home/yb/sambashare/F21-lab2/auto_report_1.csv"
 
 # test bench TB files' names
 tb = "/home/yb/sambashare/F21-lab2/tb/*"
 
 submission_path = "/home/yb/sambashare/F21-lab2/submissions"
-
-# vivado path and parameters
-vivado_path = ["/tools/Xilinx/Vivado/2020.1/bin/vivado",
-               "-nolog", "-nojournal", "-mode", "tcl", "-source"]
 
 def run():
     #
@@ -49,7 +50,7 @@ def run():
 
         d = defaultdict(str)
 
-        print("-------------------" + "-------------------")
+        print("--------------------------------------")
         os.chdir(os.path.join(submission_path,i))
         print("current dir :", os.getcwd())
 
